@@ -6,6 +6,7 @@ import {
   getContactsController,
   getContactByIdController,
   createContactsController,
+  updateContactsController,
   deleteContactsController,
 } from '../controllers/contacts.js';
 
@@ -16,6 +17,8 @@ router.get('/', ctrlWrapper(getContactsController));
 router.get('/:contactId', ctrlWrapper(getContactByIdController));
 
 router.post('/', ctrlWrapper(createContactsController));
+
+router.patch('/:contactId', ctrlWrapper(updateContactsController));
 
 router.delete('/:contactId', ctrlWrapper(deleteContactsController));
 

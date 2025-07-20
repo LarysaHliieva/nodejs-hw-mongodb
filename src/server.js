@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import pino from 'pino-http';
+// import pino from 'pino-http';
 
 import { getEnvVar } from './utils/getEnvVar.js';
 
@@ -16,13 +16,13 @@ export function setupServer() {
 
   app.use(cors());
 
-  app.use(
-    pino({
-      transport: {
-        target: 'pino-pretty',
-      },
-    }),
-  );
+  // app.use(
+  //   pino({
+  //     transport: {
+  //       target: 'pino-pretty',
+  //     },
+  //   }),
+  // );
 
   app.use(express.json());
 

@@ -1,6 +1,8 @@
 import { Schema } from 'mongoose';
 import mongoose from 'mongoose';
 
+import { CONTENT_TYPE } from '../constans/index.js';
+
 const contactsSchema = new Schema(
   {
     name: {
@@ -25,7 +27,7 @@ const contactsSchema = new Schema(
     contactType: {
       type: String,
       required: true,
-      enum: ['work', 'home', 'personal'],
+      enum: Object.values(CONTENT_TYPE),
       default: 'personal',
     },
   },

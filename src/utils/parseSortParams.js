@@ -1,10 +1,6 @@
 import { SORT_ORDER } from '../constans/index.js';
 
 const parseSortOrder = (value) => {
-  if (!value) {
-    return SORT_ORDER.ASC;
-  }
-
   if (Object.values(SORT_ORDER).includes(value)) {
     return value;
   }
@@ -14,10 +10,6 @@ const parseSortOrder = (value) => {
 
 const parseSortBy = (value) => {
   const keys = ['name'];
-
-  if (!value) {
-    return '_id';
-  }
 
   if (keys.includes(value)) {
     return value;

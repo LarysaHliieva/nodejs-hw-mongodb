@@ -1,6 +1,6 @@
 import { Contacts } from '../models/contact.js';
 
-export const getAllContacts = async ({ page, perPage }) => {
+export const getAllContacts = async ({ page, perPage, sortBy, sortOrder }) => {
   const skip = page > 0 ? (page - 1) * perPage : 0;
 
   const contactsQuery = Contacts.find();
@@ -8,7 +8,11 @@ export const getAllContacts = async ({ page, perPage }) => {
     .merge(contactsQuery)
     .countDocuments();
 
-  const contacts = await contactsQuery.skip(skip).limit(perPage).exec();
+  const contacts = await contactsQuery
+    .skip(skip)
+    .limit(perPage)
+    .sort({ [sortBy]: sortOrder })
+    .exec();
 
   const totalPages = Math.ceil(contactsCount / perPage);
 

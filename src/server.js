@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 // import pino from 'pino-http';
+import cookieParser from 'cookie-parser';
 
 import { getEnvVar } from './utils/getEnvVar.js';
 
@@ -16,6 +17,8 @@ export function setupServer() {
   const app = express();
 
   app.use(cors());
+
+  app.use(cookieParser());
 
   // app.use(
   //   pino({

@@ -10,14 +10,18 @@ import {
   deleteContactsController,
 } from '../controllers/contacts.js';
 
+import { authenticate } from '../middlewares/authenticate.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { validateBody } from '../middlewares/validateBody.js';
+
 import {
   createContactsSchema,
   updateContactsSchema,
 } from '../validation/contact.js';
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/', ctrlWrapper(getContactsController));
 

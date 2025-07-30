@@ -46,23 +46,12 @@ export const loginUser = async (payload) => {
 
   await Sessions.deleteOne({ userId: user._id });
 
-  // const accessToken = crypto.randomBytes(30).toString('base64');
-  // const refreshToken = crypto.randomBytes(30).toString('base64');
-
   const newSession = createSession();
 
   return await Sessions.create({
     userId: user._id,
     ...newSession,
   });
-
-  // return await Sessions.create({
-  //   userId: user._id,
-  //   accessToken,
-  //   refreshToken,
-  //   accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-  //   refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
-  // });
 };
 
 export const refreshUserSession = async ({ sessionId, refreshToken }) => {

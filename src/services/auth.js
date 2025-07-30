@@ -23,6 +23,15 @@ export const registerUser = async (payload) => {
   });
 };
 
+const createSession = () => {
+  return {
+    accessToken: crypto.randomBytes(30).toString('base64'),
+    refreshToken: crypto.randomBytes(30).toString('base64'),
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+  };
+};
+
 export const loginUser = async (payload) => {
   const user = await Users.findOne({ email: payload.email });
 
@@ -37,16 +46,23 @@ export const loginUser = async (payload) => {
 
   await Sessions.deleteOne({ userId: user._id });
 
-  const accessToken = crypto.randomBytes(30).toString('base64');
-  const refreshToken = crypto.randomBytes(30).toString('base64');
+  // const accessToken = crypto.randomBytes(30).toString('base64');
+  // const refreshToken = crypto.randomBytes(30).toString('base64');
+
+  const newSession = createSession();
 
   return await Sessions.create({
     userId: user._id,
-    accessToken,
-    refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+    ...newSession,
   });
+
+  // return await Sessions.create({
+  //   userId: user._id,
+  //   accessToken,
+  //   refreshToken,
+  //   accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+  //   refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+  // });
 };
 
 export const refreshUserSession = async ({ sessionId, refreshToken }) => {
@@ -63,17 +79,14 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
     throw createHttpError(401, 'Session token expired');
   }
 
-  const newSession = await Sessions.create({
-    userId: session.userId,
-    accessToken: crypto.randomBytes(30).toString('base64'),
-    refreshToken: crypto.randomBytes(30).toString('base64'),
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
-  });
-
   await Sessions.deleteOne({ _id: sessionId, refreshToken });
 
-  return newSession;
+  const newSession = createSession();
+
+  return await Sessions.create({
+    userId: session.userId,
+    ...newSession,
+  });
 };
 
 export const logoutUser = async (sessionId) => {

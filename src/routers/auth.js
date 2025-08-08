@@ -8,6 +8,7 @@ import {
   logoutController,
   refreshController,
   sendResetEmailController,
+  resetPwdController,
 } from '../controllers/auth.js';
 
 import { validateBody } from '../middlewares/validateBody.js';
@@ -16,6 +17,7 @@ import {
   registerUserSchema,
   loginUserSchema,
   sendResetEmailShema,
+  resetPwdShema,
 } from '../validation/auth.js';
 
 const router = Router();
@@ -40,6 +42,12 @@ router.post(
   '/send-reset-email',
   validateBody(sendResetEmailShema),
   ctrlWrapper(sendResetEmailController),
+);
+
+router.post(
+  '/reset-pwd',
+  validateBody(resetPwdShema),
+  ctrlWrapper(resetPwdController),
 );
 
 export default router;

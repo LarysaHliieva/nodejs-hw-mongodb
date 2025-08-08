@@ -14,3 +14,8 @@ export const loginUserSchema = Joi.object({
 export const sendResetEmailShema = Joi.object({
   email: Joi.string().email({ minDomainSegments: 2 }).required(),
 });
+
+export const resetPwdShema = Joi.object({
+  password: Joi.string().required(),
+  token: Joi.string().required(),
+});

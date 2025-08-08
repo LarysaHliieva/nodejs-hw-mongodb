@@ -122,7 +122,15 @@ export const sendResetToken = async (email) => {
 };
 
 export const resetPassword = async ({ token, password }) => {
-  const decoded = jwt.verify(token, getEnvVar('JWT_SECRET'));
+  let decoded;
+  try {
+    decoded = jwt.verify(token, getEnvVar('JWT_SECRET'));
+  } catch (err) {
+    if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
+      throw createHttpError(401, 'Token is expired or invalid.');
+    }
+    throw err;
+  }
 
   const user = await Users.findOne({ _id: decoded.sub, email: decoded.email });
 
@@ -133,4 +141,5 @@ export const resetPassword = async ({ token, password }) => {
   const encryptedPassword = await bcrypt.hash(password, 10);
 
   await Users.findByIdAndUpdate(user._id, { password: encryptedPassword });
+  await Sessions.deleteOne({ userId: user._id });
 };

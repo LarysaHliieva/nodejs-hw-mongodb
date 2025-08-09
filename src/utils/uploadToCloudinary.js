@@ -1,3 +1,4 @@
+import * as fs from 'node:fs/promises';
 import cloudinary from 'cloudinary';
 
 import { getEnvVar } from '../utils/getEnvVar.js';
@@ -11,6 +12,10 @@ cloudinary.v2.config({
   api_secret: getEnvVar(CLOUDINARY.CLOUDINARY_API_SECRET),
 });
 
-export const uploadToCloudinary = (filePath) => {
-  return cloudinary.v2.uploader.upload(filePath);
+export const uploadToCloudinary = async (filePath) => {
+  const res = await cloudinary.v2.uploader.upload(filePath);
+
+  await fs.unlink(filePath);
+
+  return res.secure_url;
 };

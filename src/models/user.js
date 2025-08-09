@@ -18,11 +18,6 @@ const usersSchema = new Schema(
       type: String,
       required: true,
     },
-
-    photo: {
-      type: String,
-      default: null,
-    },
   },
   {
     timestamps: true,

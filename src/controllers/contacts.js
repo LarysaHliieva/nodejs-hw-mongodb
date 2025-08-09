@@ -72,7 +72,19 @@ export const createContactsController = async (req, res) => {
 
 export const updateContactsController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await updateContact(contactId, req.body, req.user._id);
+
+  const photo = req.file;
+  let photoUrl;
+
+  if (photo) {
+    photoUrl = await uploadToCloudinary(photo.path);
+  }
+
+  const contact = await updateContact(
+    contactId,
+    { ...req.body, photo: photoUrl },
+    req.user._id,
+  );
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');

@@ -1,9 +1,9 @@
-#/swagger/paths/students/get.yaml
+#/swagger/paths/contacts/get.yaml
 
 tags:
   - Contacts
 summary: Get list of contacts
-operationId: getStudents
+operationId: getContacts
 description: 'Get list of all contacts'
 security:
   - bearerAuth: []
@@ -100,3 +100,5 @@ responses:
                 hasPreviousPage:
                   type: boolean
                   example: true
+  '500':
+    $ref: ../../../components/responses/500.yaml

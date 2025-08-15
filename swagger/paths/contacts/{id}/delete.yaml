@@ -1,4 +1,3 @@
-# swagger/delete/contacts/{id}/get.yaml
 tags:
   - Contacts
 summary: Delete contact by id

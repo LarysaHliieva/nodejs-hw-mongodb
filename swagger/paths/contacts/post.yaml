@@ -1,5 +1,3 @@
-#/swagger/paths/contacts/post.yaml
-
 tags:
   - Contacts
 summary: Create contact
@@ -62,6 +60,6 @@ responses:
               example: Successfully created a contact!
             data:
               type: object
-              $ref: '../../components/schemas/student.yaml'
+              $ref: '../../components/schemas/contact.yaml'
   '500':
     $ref: ../../../components/responses/500.yaml

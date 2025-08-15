@@ -62,4 +62,4 @@ responses:
               type: object
               $ref: '../../components/schemas/contact.yaml'
   '500':
-    $ref: ../../../components/responses/500.yaml
+    $ref: ../../components/responses/500.yaml

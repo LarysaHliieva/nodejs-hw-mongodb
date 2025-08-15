@@ -99,4 +99,4 @@ responses:
                   type: boolean
                   example: true
   '500':
-    $ref: ../../../components/responses/500.yaml
+    $ref: ../../components/responses/500.yaml

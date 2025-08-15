@@ -81,19 +81,6 @@
           },
           {
             "in": "query",
-            "name": "filter",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "male",
-                "female",
-                "other"
-              ],
-              "example": "male"
-            }
-          },
-          {
-            "in": "query",
             "name": "type",
             "schema": {
               "type": "string",
@@ -211,8 +198,7 @@
                 "type": "object",
                 "required": [
                   "name",
-                  "phoneNumber",
-                  "contactType"
+                  "phoneNumber"
                 ],
                 "properties": {
                   "name": {
@@ -237,7 +223,8 @@
                       "home",
                       "work",
                       "personal"
-                    ]
+                    ],
+                    "default": "personal"
                   },
                   "isFavourite": {
                     "description": "Whether a contact is in favorites",

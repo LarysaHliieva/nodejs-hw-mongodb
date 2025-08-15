@@ -13,7 +13,6 @@ requestBody:
         required:
           - name
           - phoneNumber
-          - contactType
         properties:
           name:
             description: "Contact's name"
@@ -31,6 +30,7 @@ requestBody:
             description: 'Type of phonenumber'
             type: string
             enum: ['home', 'work', 'personal']
+            default: 'personal'
           isFavourite:
             description: 'Whether a contact is in favorites'
             type: boolean

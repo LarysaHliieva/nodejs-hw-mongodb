@@ -31,12 +31,6 @@ parameters:
       example: 'asc'
       default: 'asc'
   - in: query
-    name: filter
-    schema:
-      type: string
-      enum: ['male', 'female', 'other']
-      example: male
-  - in: query
     name: type
     schema:
       type: string

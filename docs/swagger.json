@@ -206,8 +206,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -279,6 +278,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -338,6 +340,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -445,6 +450,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "404": {
             "$ref": "#/components/responses/404"
           },
@@ -479,6 +487,9 @@
         "responses": {
           "204": {
             "description": "Contact successfully deleted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -571,6 +582,30 @@
       }
     },
     "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad Request"
+                }
+              }
+            }
+          }
+        }
+      },
       "404": {
         "description": "Not Found",
         "content": {

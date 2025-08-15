@@ -1,7 +1,11 @@
+import * as fs from 'node:fs';
+import path from 'node:path';
+
 import cors from 'cors';
 import express from 'express';
 // import pino from 'pino-http';
 import cookieParser from 'cookie-parser';
+import swaggerUI from 'swagger-ui-express';
 
 import { getEnvVar } from './utils/getEnvVar.js';
 
@@ -12,6 +16,10 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 const PORT = Number(getEnvVar('PORT')) || 3000;
+
+const SWAGGER_DOCUMENT = JSON.parse(
+  fs.readFileSync(path.join('docs', 'swagger.json'), 'utf-8'),
+);
 
 export function setupServer() {
   const app = express();
@@ -30,6 +38,8 @@ export function setupServer() {
 
   app.use('/contacts', contactsRouter);
   app.use('/auth', authRouter);
+
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
 
   app.use(notFoundHandler);
 
